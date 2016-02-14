@@ -1,6 +1,6 @@
 class Node(object):
-    def __init__(self):
-        self.data = None
+    def __init__(self, data):
+        self.data = data
         self.next = None
 
     def setData(self, data):
@@ -16,7 +16,11 @@ class Node(object):
         return self.next
 
     def hasNext(self):
-        return self.next != None
+        return self.next is not None
+
+    # __str__ returns string equivalent of Object
+    def __str__(self):
+        return "Node[Data = %s]" % (self.data,)
 
 
 class LinkedList(object):
@@ -25,61 +29,171 @@ class LinkedList(object):
         self.head = None
 
     # method to add a node in the linked list
-    def addNode(self, node):
-        pass
+    def insert(self, data):
+        if self.length == 0:
+            self.insertAtBeg(data)
+        else:
+            self.insertAtBeg(data)
 
-        # method to add a node at the beginning of the list with a data
+    def insertAtBeg(self, item):
+        newNode = Node(item)
+        newNode.setNext(self.head)
+        self.head = newNode
+        self.length += 1
 
-    def addBeg(self, node):
-        pass
+    def insertAtEnd(self, item):
+        current = self.head
 
-    # method to add a node after the node having the data=data. The data of the new node is value2
-    def addAfterValue(self, data, node):
-        pass
+        while current.getNext() is not None:
+            current = current.getNext()
 
-    # method to add a node at a particular position
-    def addAtPos(self, pos, node):
-        pass
+        node = Node(item)
+        current.setNext(node)
 
-    # method to add a node at the end of a list
-    def addLast(self, node):
-        pass
+        self.length += 1
+
+    def insertBeforeItem(self, inItem, item):
+        current = self.head
+        previous = None
+        found = False
+        stop = False
+
+        while current and not found and not stop:
+            if current.getData() == item:
+                found = True
+                stop = True
+            else:
+                previous = current
+                current = current.getNext()
+
+        node = Node(inItem)
+        previous.setNext(node)
+        node.setNext(current)
+
+    def insertAfterItem(self, inItem, item):
+        current = self.head
+
+        found = False
+        stop = False
+
+        while current and not found and not stop:
+            if current.getData() == item:
+                found = True
+                stop = True
+            else:
+                #                previous = current
+                current = current.getNext()
+        successor = current.getNext()
+        node = Node(inItem)
+        current.setNext(node)
+        node.setNext(successor)
 
     # method to delete the first node of the linked list
     def deleteBeg(self):
-        pass
+        if self.length == 0:
+            print("The list is empty")
+        else:
+            self.head = self.head.next
+            self.length -= 1
 
     # method to delete the last node of the linked list
     def deleteLast(self):
-        pass
+        if self.length == 0:
+            print("The list is empty")
+        else:
+            currentnode = self.head
+            previousnode = self.head
+            while currentnode.next:
+                previousnode = currentnode
+                currentnode = currentnode.next
+
+            previousnode = None
+            self.length -= 1
 
     # method to delete a node after the node having the given data
     def deleteValue(self, data):
-        pass
+        current = self.head
+        previous = None
+        found = False
+        while current and found is False:
+            if current.getData() == data:
+                found = True
+            else:
+                previous = current
+                current = current.getNext()
+        if current is None:
+            raise ValueError("Data not in list")
+        if previous is None:
+            self.head = current.getNext()
+        else:
+            previous.setNext(current.getNext())
 
-    # method to delete a node at a particular position
+        return True
+
+    # particular position
     def deleteAtPos(self, pos):
-        pass
+        raise NotImplementedError
 
     # returns the length of the list
     def getLength(self):
-        pass
+        return self.length
 
     # returns the first element of the list
     def getFirst(self):
-        pass
+        if self.length == 0:
+            print("The list is empty")
+        else:
+            return self.head.data
 
     # returns the last element of the list
     def getLast(self):
-        pass
+        if self.length == 0:
+            print("The list is empty")
+        else:
+            currentnode = self.head
+
+            while currentnode is not None:
+                currentnode = currentnode.next
+
+            return currentnode.data
 
     # returns node at any position
     def getAtPos(self, pos):
-        pass
+        count = 0
+        currentnode = self.head
+
+        if pos > self.length or pos < 0:
+            print("The position does not exist. Please enter a valid position")
+        else:
+            while currentnode.next != None or count < pos:
+                count = count + 1
+                if count == pos:
+                    return currentnode.data
+                else:
+                    currentnode = currentnode.next
+
+    def search(self, data):
+        if self.length == 0:
+            print("The list is empty")
+            return None
+
+        current = self.head
+
+        while current:
+            if current.data == data:
+                return current.data
+            current = current.next
+
+        return None
 
     # method to print the whole list
     def printList(self):
-        pass
+        listData = []
+        currentNode = self.head
+        while currentNode:
+            listData.append(currentNode.data)
+            currentNode = currentNode.next
+        print(listData)
 
 
 class BSTNode:
@@ -168,15 +282,19 @@ def preOrderTraversal(root):
     preOrderTraversal(root.right)
 
 
-node1 = Node(1)
-node2 = Node(2)
-node3 = Node(3)
-node4 = Node(4)
-node5 = Node(5)
-ll = LinkedList()
-ll.addNode(node1)
-ll.addNode(node2)
-ll.addNode(node3)
-ll.addNode(node4)
-ll.addNode(node5)
-ll.print_list()
+def main():
+    l_list = LinkedList()
+    l_list.insert("Jacob")
+    l_list.insert("Cid")
+    l_list.insert("Pallymay")
+    l_list.insert("Rasmus")
+    l_list.insert("Rasmus")
+    l_list.deleteValue("Rasmus")
+    l_list.deleteValue("Cid")
+    l_list.printList()
+    print(l_list.head.data)
+    print(l_list.head)
+
+
+if __name__ == '__main__':
+    main()
