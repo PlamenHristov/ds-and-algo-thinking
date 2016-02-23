@@ -1,6 +1,6 @@
 class Stack(object):
     def __init__(self, limit=10):
-        self.stk = limit * [None]
+        self.stk = []
         self.limit = limit
 
     def isEmpty(self):
