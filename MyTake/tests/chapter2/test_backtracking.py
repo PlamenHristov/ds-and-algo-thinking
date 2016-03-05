@@ -6,5 +6,10 @@ class TestBacktracking(unittest.TestCase):
     def test_appendAtBeginningFront(self):
         print(Backtracking.bitStrings(4))
 
-if __name__ == '__main__':
+
+def main():
     unittest.main()
+
+
+if __name__ == '__main__':
+    main()

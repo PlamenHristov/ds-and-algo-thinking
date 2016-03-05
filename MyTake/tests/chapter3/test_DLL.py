@@ -1,13 +1,11 @@
 from unittest import TestCase
 
-
 import random
 import unittest
 from MyTake.src.chapter3.DLL import DoubleLinkedList
 
+
 class TestSequenceFunctions(unittest.TestCase):
-
-
     def test_insert(self):
         dll = DoubleLinkedList()
         dll.insert("alice")
@@ -25,7 +23,7 @@ class TestSequenceFunctions(unittest.TestCase):
         self.assertEqual(dll.getNode(2).getPrev().getData(), "bob")
         self.assertEqual(dll.getNode(2).getNext().getData(), "charlie")
 
-        #insert an index that should go on the end and exercise the
+        # insert an index that should go on the end and exercise the
         # insertAtEnd method which didn't exist
         dll.insertAtGivenPosition(100, "donna")
         self.assertEqual(dll.getNode(4).getData(), "donna")
@@ -42,8 +40,9 @@ class TestSequenceFunctions(unittest.TestCase):
         self.assertEqual(dll.getNode(1).getData(), "charlie")
 
 
-
-if __name__ == '__main__':
+def main():
     unittest.main()
 
 
+if __name__ == '__main__':
+    main()

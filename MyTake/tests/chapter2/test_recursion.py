@@ -13,5 +13,9 @@ class TestRecursion(unittest.TestCase):
         self.assertTrue(Recursion.isArraySorted(sorted))
         self.assertFalse(Recursion.isArraySorted(not_sorted))
 
-if __name__ == '__main__':
+def main():
     unittest.main()
+
+
+if __name__ == '__main__':
+    main()
